@@ -1,0 +1,12 @@
+// create a server - > listen - > then able to accept incoming requets
+// Express js - > Node js framework
+
+// express = "4.19.2"
+//         4 - > major
+//         19 - > minor (some feature,backword compatible)
+//         2 - > patch (small change,bug fix and push)
+
+// ^ it will automatcially upgrate to 4.x.x
+// ~ it will  - do homework
+
+
