@@ -4,19 +4,25 @@ const app = express() // create new we server
 
 //request handler
 
+//this will only handle GET call to /user
+// app.get("/user", (req, res) => {
+//     res.send({ firstName: 'Manish', lastName: 'Nibandhe' })
+// })
 
 
-app.use('/test', (req, res) => {
-    res.send("Hello from the server")
+// query params   /user?userId=101
+app.get('/user', (req, res) => {     // check the sequencing 
+    console.log(req.query)
+    res.send({ firstName: 'Manish', lastName: 'Nibandhe' })
 })
 
-app.use('/hello', (req, res) => {
-    res.send("Hello Hello Hello")
+// dynamic routes  : /user/101/username
+app.get('/user/:userId/:username', (req, res) => {
+    console.log(req.params)
+    res.send({ firstName: 'Manish', lastName: 'Nibandhe' })
 })
 
-app.use('/', (req, res) => {
-    res.send("Hello from the dashboard")
-})
+
 
 
 // after create listen to some port 
