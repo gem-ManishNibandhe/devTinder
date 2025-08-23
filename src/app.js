@@ -38,12 +38,6 @@ const { adminAuth, userAuth } = require("./middlewares/auth")
 //     res.send({ firstName: 'Manish', lastName: 'Nibandhe' })
 // })
 
-app.use("/", (err, req, res, next) => {
-    if (err) {
-        //Log your errors
-        res.status(500).send("something went wrong")
-    }
-})
 
 app.get('/getUserdata', (req, res) => {
     try {
@@ -54,6 +48,14 @@ app.get('/getUserdata', (req, res) => {
     }
 
 
+})
+
+//Keep at the end throw this error
+app.use("/", (err, req, res, next) => {
+    if (err) {
+        //Log your errors
+        res.status(500).send("something went wrong")
+    }
 })
 
 
