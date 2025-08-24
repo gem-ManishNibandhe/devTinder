@@ -4,14 +4,12 @@ const app = express() // create new we server
 const User = require('./models/user')
 
 
+app.use(express.json())  // middleware to read json data into js format . Difining here will work for all apis
+
 app.post('/signup', async (req, res) => {
     // Creating a new instance of the user model
-    const user = new User({
-        firstName: "Virat",
-        lastName: "Kolhi",
-        emailId: "ViratKolhi@gmail.com",
-        password: "1234567"
-    })
+    const user = new User(req.body)
+
     //Will save to database and returns a promise
     try {
         await user.save();
