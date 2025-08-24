@@ -20,6 +20,67 @@ app.post('/signup', async (req, res) => {
 
 })
 
+//Get user by email
+
+app.get('/user', async (req, res) => {
+    const userEmail = req.body.emailId;
+
+    try {
+        const users = await User.findOne({ emailId: userEmail });
+        if (users.length === 0) {
+            res.status(404).send("User not found")
+        } else {
+            res.send(users)
+        }
+
+    } catch (err) {
+        res.status(400).send("Something went wrong")
+    }
+})
+
+// Feed API - GET/feed - get all the user from the db
+app.get('/feed', async (req, res) => {
+    // const userEmail = req.body.emailId;
+
+    try {
+        const users = await User.find({});   // will get all the documents from the db
+        if (users.length === 0) {
+            res.status(404).send("User not found")
+        } else {
+            res.send(users)
+        }
+
+    } catch (err) {
+        res.status(400).send("Something went wrong")
+    }
+})
+
+// Delete user from DB
+app.delete('/user', async (req, res) => {
+    const userId = req.body.userId;
+    try {
+        const user = await User.findByIdAndDelete(userId)
+
+        res.send("User Deleted Successfully")
+    } catch (err) {
+        res.status(400).send("Something went wrong")
+    }
+})
+
+// 
+app.patch('/user', async (req, res) => {
+    const userId = req.body.userId;
+    const data = req.body
+    console.log(data)
+    try {
+        const user = await User.findByIdAndUpdate({ _id: userId }, data, { "returnDocument": 'before' }) //returnDocument will return old data before the update
+        console.log(user)
+        res.send("User Data upadted successfully")
+    } catch (err) {
+        res.status(400).send("Something went wrong")
+    }
+})
+
 
 // Always first create DB coonection and then run the port . Never run port and then connect db
 connectDB().then(() => {

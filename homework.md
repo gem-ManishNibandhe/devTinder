@@ -22,3 +22,11 @@
 - Difference between JSON and JavaScript object
 - Add the express.json middleware to your app
 - Make your signup API dynamic to recive data from the end user
+- Get user by email
+- Feed API - GET/feed - get all the user from the db
+- Create user delete api
+- Difference betwwen PATCH and PUT
+- API - update a user
+- Explore the Mongoose Documentation for Model methods
+- What are options in a Model.findOneAndUpdate method ,explore more about it
+- API - update the user with email ID
