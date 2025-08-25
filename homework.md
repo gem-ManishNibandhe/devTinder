@@ -39,3 +39,5 @@
 - Add timestamp to the Userschema
 - Add API level validations on Patch request & Signup post api
 - Data Sanitizating - Add API validation for each field
+- Install Validator
+- Explore Validator library function and use validtor function for password , emaiId, age , etc.
