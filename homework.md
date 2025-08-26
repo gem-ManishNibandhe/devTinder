@@ -41,3 +41,9 @@
 - Data Sanitizating - Add API validation for each field
 - Install Validator
 - Explore Validator library function and use validtor function for password , emaiId, age , etc.
+
+- Validate data in signup API
+- Install bscrypt package
+- Create PasswordHash using bcrypt.hash & save the user is encrupted password
+- Create login API
+- Campare passowrds and throe errors if email or password is invalid
