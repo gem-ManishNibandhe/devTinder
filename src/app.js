@@ -2,6 +2,7 @@ const express = require('express')
 const connectDB = require("./config/database")
 const app = express() // create new we server 
 const cookieParser = require('cookie-parser')
+const userRouter = require('./routes/user')
 
 
 app.use(express.json())  // middleware to read json data into js format . Difining here will work for all apis
@@ -13,6 +14,7 @@ const requestRouter = require('./routes/request')
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", requestRouter);
+app.use("/", userRouter);
 
 
 

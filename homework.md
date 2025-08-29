@@ -85,3 +85,9 @@
 - Why do we need an index
 - What is the advantages and disadvantages of of creating ?
 - Always think of corner cases
+
+- Write code with proper validation for POST /request/review/:status/:requestId
+- Thought process POST vs GET
+- Read about ref and populate from mongoose site
+- Create GET /user/requests/reveived will all the checks
+- Create GET / user/connections
