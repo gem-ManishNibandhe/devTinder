@@ -91,3 +91,15 @@
 - Read about ref and populate from mongoose site
 - Create GET /user/requests/reveived will all the checks
 - Create GET / user/connections
+
+- Logic for GET /feed API
+- Explore the $nin , $and , $ne and other comparion queries operator
+
+- Pagination
+  Notes
+  /feed?page=1&limit=10 => first 10 users 1-10 = > .skip(0) & .limit(10)
+  /feed?page=2&limit=10 => 11-20 => .skip(10) & .limit(10)
+
+  .skip() & .limit() in mongodb for pagination
+
+  skip = (page-1)\*(limit)
