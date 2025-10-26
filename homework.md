@@ -103,6 +103,3 @@
   .skip() & .limit() in mongodb for pagination
 
   skip = (page-1)\*(limit)
-
-limit
-ss
