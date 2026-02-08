@@ -13,7 +13,7 @@ userRouter.get("/user/requests/received", userAuth, async (req, res) => {
         const connectionRequests = await ConnectionRequest.find({
             toUserId: loggedInUser._id,
             status: "interested",
-        }).populate("fromUserId", ["firstName", "lastName", "photoUrl", 'age']); //fetch fromUserId first,lastName , second params is filter
+        }).populate("fromUserId", ["firstName", "lastName", "photoUrl", 'age','about']); //fetch fromUserId first,lastName , second params is filter
 
         res.json({ "message": "Data fetched successfully", data: connectionRequests })
     } catch (err) {
@@ -63,6 +63,7 @@ userRouter.get("/feed", userAuth, async (req, res) => {
 
         const loggedInUser = req.user
 
+
         const page = parseInt(req.query.page) || 1;
         let limit = parseInt(req.query.limit) || 10;
         limit = limit > 50 ? 50 : limit;
@@ -72,6 +73,7 @@ userRouter.get("/feed", userAuth, async (req, res) => {
         const connectionRequests = await ConnectionRequest.find({
             $or: [{ fromUserId: loggedInUser?._id }, { toUserId: loggedInUser?._id }]
         }).select("fromUserId toUserId")
+        console.log(connectionRequests);
 
         const hideUsersFromFeed = new Set();
         connectionRequests.forEach(req => {
@@ -85,6 +87,7 @@ userRouter.get("/feed", userAuth, async (req, res) => {
                 { _id: { $ne: loggedInUser._id } }   // ne - > not equal  //Also remove own id 
             ]   //get all user not in hideUsersFromFeed
         }).select(USER_SAFE_DATA).skip(skip).limit(limit)
+        
         res.json({ data: users })
 
     } catch (err) {

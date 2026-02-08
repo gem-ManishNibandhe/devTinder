@@ -19,10 +19,13 @@ authRouter.post('/signup', async (req, res) => {
         const user = new User({
             firstName, lastName, emailId, password: passwordHash
         });
+         const savedUser=await user.save();
         //Will save to database and returns a promise
-
-        await user.save();
-        res.send("User Added Successfully")
+        const token = await user.getJWT();  //offload work to schema methods 
+            //Add the token to cookie and send the resp[onse back to the user 
+            res.cookie("token", token, { expires: new Date(Date.now() + 9 * 90600000) });
+       
+        res.json({message:"User Added Successfully", data:savedUser, token:token})
     } catch (err) {
         res.status(400).send("Error saving the user:" + err.message)
     }
@@ -30,6 +33,7 @@ authRouter.post('/signup', async (req, res) => {
 })
 
 authRouter.post('/login', async (req, res) => {
+   
     try {
         const { emailId, password } = req.body;
 
@@ -44,7 +48,7 @@ authRouter.post('/login', async (req, res) => {
             const token = await user.getJWT();  //offload work to schema methods 
             //Add the token to cookie and send the resp[onse back to the user 
             res.cookie("token", token, { expires: new Date(Date.now() + 9 * 90600000) });
-            res.send("Login Successful!!!")
+            res.send(user)
         } else {
             throw new Error("Invalid Credentials");
         }

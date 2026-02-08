@@ -29,7 +29,8 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
                 { fromUserId: toUserId, toUserId: fromUserId },
             ],
         })
-        if (existingConnectionRequest && existingConnectionRequest.length > 0) {
+        // findOne returns a single document or null — check for existence directly
+        if (existingConnectionRequest) {
             return res.status(400).json({ message: "Connection Request Already Exists!!" })
         }
 
@@ -58,8 +59,9 @@ requestRouter.post("/request/review/:status/:requestId", userAuth, async (req, r
             return res.status(400).json({ message: "Status not allowed!!" })
         }
 
-        const connectionRequest = await ConnectionRequest.findOne({ fromUserId: requestId, toUserId: loggedInUser._id, status: "interested" }).populate("fromUserId", ["firstName", "lastName",]);
-
+    // requestId param is the connection request's _id, not the fromUserId — query by _id
+    const connectionRequest = await ConnectionRequest.findOne({ _id: requestId, toUserId: loggedInUser._id, status: "interested" }).populate("fromUserId", ["firstName", "lastName"]);
+        console.log(connectionRequest);
         if (!connectionRequest) {
             return res.status(404).json({ message: "Connection request not found" });
         }
