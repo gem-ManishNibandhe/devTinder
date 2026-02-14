@@ -3,6 +3,8 @@ const { userAuth } = require("../middlewares/auth");
 const ConnectionRequest = require('../models/connectionRequest');
 const User = require('../models/user')
 
+const sendEmail = require("../utils/sendEmail")   
+
 const requestRouter = express.Router();
 
 requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res) => {
@@ -40,10 +42,16 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
             status,
         })
         const data = await connectionRequest.save();
+
+        // Send email notification to the toUser about the new connection request
+        const emailRes= await sendEmail.run('A new connection request from ' + req.user.firstName, req.user.firstName + " is " + status + " in " + toUser.firstName + ' '+toUser.lastName);
+       
+
         res.json({
             message: req.user.firstName + " is " + status + " in " + toUser.firstName,
             data,
         })
+        
     } catch (err) {
         res.status(400).send("ERROR: " + err.message)
     }

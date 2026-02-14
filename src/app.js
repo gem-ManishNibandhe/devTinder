@@ -1,9 +1,33 @@
+// load environment variables from .env (project root or src/.env)
+// dotenv is only for local development; in production set env vars in the host/container
+try {
+    const path = require('path')
+    const dotenv = require('dotenv')
+    const rootEnv = path.resolve(process.cwd(), '.env')
+    const srcEnv = path.resolve(process.cwd(), 'src', '.env')
+
+    let result = dotenv.config({ path: rootEnv })
+    if (result.error) {
+        result = dotenv.config({ path: srcEnv })
+        if (!result.error) console.log('Loaded environment from', srcEnv)
+    } else {
+        console.log('Loaded environment from', rootEnv)
+    }
+} catch (e) {
+    // ignore if dotenv isn't installed or file not present
+}  //. code to get env variables from .env file and set in process.env. This is only for local development. In production, env vars should be set in the hosting environment (e.g., via Docker, cloud provider settings, etc.)
+
+
+
+
 const express = require('express')
 const connectDB = require("./config/database")
 const app = express() // create new we server 
 const cookieParser = require('cookie-parser')
 const userRouter = require('./routes/user')
 const cors = require('cors')
+
+
 
 // allow only the frontend origin (no trailing slash) and allow credentials (cookies)
 app.use(cors({ origin: "http://localhost:5173", credentials: true }))

@@ -73,7 +73,7 @@ userRouter.get("/feed", userAuth, async (req, res) => {
         const connectionRequests = await ConnectionRequest.find({
             $or: [{ fromUserId: loggedInUser?._id }, { toUserId: loggedInUser?._id }]
         }).select("fromUserId toUserId")
-        console.log(connectionRequests);
+        
 
         const hideUsersFromFeed = new Set();
         connectionRequests.forEach(req => {
