@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser')
 const userRouter = require('./routes/user')
 const cors = require('cors')
 require('dotenv').config()  // load env vars from .env file into process.env
-
+require('./utils/cronjob') 
 
 // allow only the frontend origin (no trailing slash) and allow credentials (cookies)
 app.use(cors({ origin: "http://localhost:5173", credentials: true }))
